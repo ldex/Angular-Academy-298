@@ -22,7 +22,7 @@
         Previous Page
     </button>
 
-    <button (click)="nextPage()" [disabled]="(products$ | async).length <= end">
+    <button (click)="nextPage()" [disabled]="(products$ | async)?.length <= end">
         Next Page
     </button>
 </div>
