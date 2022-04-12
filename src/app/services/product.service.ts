@@ -17,6 +17,14 @@ export class ProductService {
     this.initProducts();
   }
 
+  getProductById(id: number): Observable<Product> {
+    return this
+            .products$
+            .pipe(
+              map(products => products.find(product => product.id == id))
+            )
+  }
+
   initProducts() {
     this.products$ = this
                       .http
@@ -24,6 +32,7 @@ export class ProductService {
                       .pipe(
                         delay(1500), // Fake delay just for demo!!!
                         tap(console.table),
+                        shareReplay(), // cache the results
                         catchError(error => {
                           console.log(error);
                           return EMPTY;
